@@ -1,52 +1,69 @@
-# 主語・述語ゲーム＋感謝メッセージ
+# import random
 
-import random
+# 正しい組み合わせを定義（ペアで管理）
+correct_sentences = [
+    ("ぼくは", "走りました。"),
+    ("お母さんが", "笑っています。"),
+    ("犬が", "宿題をしました。"),  # ※これは不自然かも
+    ("先生が", "歌っています。")
+]
 
-subjects = ["ぼくは", "お母さんが", "犬が", "先生が"]
-predicates = ["走りました。", "笑っています。", "おてをしました。", "歌っています。"]
+# リストを分離
+subjects = [pair[0] for pair in correct_sentences]
+predicates = [pair[1] for pair in correct_sentences]
 
-# 組み合わせの正解（主語と述語のペア）
-correct_pairs = {
-    "ぼくは": "走りました。",
-    "お母さんが": "笑っています。",
-    "犬が": "おてをしました。",
-    "先生が": "歌っています。"
-}
+# 元の正解を保存してからシャッフル
+original_subjects = subjects.copy()
+original_predicates = predicates.copy()
 
-# ランダムに混ぜる
 random.shuffle(subjects)
 random.shuffle(predicates)
 
+print("=" * 40)
 print("主語と述語を正しく組み合わせてね！")
-print("主語:")
+print("=" * 40)
+print("\n【主語】")
 for i, s in enumerate(subjects):
-    print(f"{i+1}: {s}")
+    print(f"  {i+1}: {s}")
 
-print("\n述語:")
+print("\n【述語】")
 for j, p in enumerate(predicates):
-    print(f"{j+1}: {p}")
+    print(f"  {j+1}: {p}")
+
+print("\n" + "-" * 40)
 
 try:
-    user_s = int(input("\n主語の番号を選んでください: ")) - 1
-    user_p = int(input("述語の番号を選んでください: ")) - 1
-    
+    user_s = int(input("主語の番号を選んでください (1-4): ")) - 1
+    user_p = int(input("述語の番号を選んでください (1-4): ")) - 1
+
     # 範囲チェック
     if user_s < 0 or user_s >= len(subjects) or user_p < 0 or user_p >= len(predicates):
-        print("❌ 番号は1〜4で選んでください！")
+        print("❌ 番号は 1〜4 の範囲で選んでください！")
     else:
-        selected_subject = subjects[user_s - 1]
-        selected_predicate = predicates[user_p - 1]
+        chosen_subject = subjects[user_s]
+        chosen_predicate = predicates[user_p]
         
-        # 正解判定
-        if correct_pairs[selected_subject] == selected_predicate:
+        # 正解判定：元の正しいペアと一致するか
+        is_correct = (chosen_subject, chosen_predicate) in correct_sentences
+        
+        print("\n" + "=" * 40)
+        print(f"あなたの答え: 「{chosen_subject}{chosen_predicate}」")
+        print("=" * 40)
+        
+        if is_correct:
             print("🌸 正解！すばらしいね！🌸")
-            print("💌 AI先生からのお手紙：\n")
-            print("　今日も挑戦してくれてありがとう。間違えても、学ぶ姿がとても立派です。")
+            print("\n💌 AI先生からのお手紙：")
+            print("　今日も挑戦してくれてありがとう。")
+            print("　間違えても、学ぶ姿がとても立派です。")
         else:
-            print(f"❌ 残念、もういちどやってみよう！")
-            print(f"ヒント: 「{selected_subject}」の正解は「{correct_pairs[selected_subject]}」だよ")
+            print("❌ 残念、もういちど考えてみよう！")
+            print("　ヒント：文として自然になる組み合わせを探してね")
+            
 except ValueError:
     print("❌ 入力は数字でお願いします！")
-except:
-    print("❌ エラーが発生しました。もう一度試してください。")
+except Exception as e:
+    print(f"❌ エラーが発生しました: {e}")
 
+print("\n" + "=" * 40)
+print("ゲーム終了！また挑戦してね！")
+print("=" * 40)
