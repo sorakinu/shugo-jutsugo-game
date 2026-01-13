@@ -16,7 +16,7 @@
 
 ## オンラインで遊ぶ
 ブラウザで今すぐ遊べます：
-👉 [Replit で遊ぶ]https://replit.com/@sorakinu/shugo-jutsugo-game-1）
+👉 [Replit で遊ぶで遊ぶ](https://replit.com/@sorakinu/shugo-jutsugo-game-1)
 
 ## ローカルで遊ぶ
 Python がインストールされている方は：
